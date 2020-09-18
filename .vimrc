@@ -11,47 +11,21 @@ filetype off
 " Required:
 filetype plugin indent on
 
-""""""""""""""""""""""""""""""
-" Temporary Customization
-""""""""""""""""""""""""""""""
-
-"disable annoying beeps
 set noeb vb t_vb=
-
-"allow mouse usage in terminal
 set mouse=a
-"use OS clipboard
 set clipboard+=unnamed
-"system clipboard when yanked
 set clipboard=unnamed
-"Ctrl+k to copy what's on clipboard
 imap <C-p>  <ESC>"*pa
-
-"show command in status line
 set showcmd
-"show unseen words
 set list
-"display where tabs and lines go
 set listchars=tab:>\ ,extends:<
-
-"incremental search
 set incsearch
-"highlight search
 set hlsearch
-"ignore case
 set ignorecase
-
-"show filepath on window titlebar
 set title
-"display line number
 set number
-"locate cursor
 set ruler
-
 set laststatus=2
-
-"for html
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
 """"""""""""""""""""""""""""""
 " Colors
@@ -61,26 +35,15 @@ syntax on
 """"""""""""""""""""""""""""""
 " Indents
 """"""""""""""""""""""""""""""
-"default tab to 2 spaces
 set tabstop=4
-"default indent width
 set shiftwidth=4
-"tabs become multiple spaces
-"set expandtab
-"continue previous tab when going to next line
 set autoindent
-"adjust indents when going to next line
-"set smartindent
 set noexpandtab
 
 "credits: https://github.com/yuroyoro/dotfiles/blob/master/.vimrc.indent
 if has("autocmd")
-  "ファイルタイプの検索を有効にする
   filetype plugin on
-  "そのファイルタイプにあわせたインデントを利用する
   filetype indent on
-  " これらのftではインデントを無効に
-  "autocmd FileType php filetype indent off
 
   autocmd FileType c          setlocal sw=4
   autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
@@ -101,7 +64,6 @@ if has("autocmd")
   autocmd FileType xml        setlocal sw=4 sts=4 ts=4 et
   autocmd FileType yaml       setlocal sw=2 sts=2 ts=2 et
   autocmd FileType zsh        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType scala      setlocal sw=2 sts=2 ts=2 et
   autocmd FileType go         setlocal noexpandtab list tabstop=2 shiftwidth=2
 endif
 
@@ -128,13 +90,6 @@ if has('syntax')
 endif
 """"""""""""""""""""""""""""""
 
-"for markdown
-au BufRead,BufNewFile *.md set filetype=markdown
-
-filetype on
-
-""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")
