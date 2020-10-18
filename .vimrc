@@ -67,11 +67,6 @@ if has("autocmd")
   autocmd FileType go         setlocal noexpandtab list tabstop=2 shiftwidth=2
 endif
 
-"jsx
-let g:jsx_ext_required = 0
-"let g:javascript_plugin_flow = 1
-let g:javascript_plugin_jsdoc = 1
-
 " http://inari.hatenablog.com/entry/2014/05/05/231307
 """"""""""""""""""""""""""""""
 " Zenkaku
