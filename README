@@ -1,8 +1,11 @@
 docker build --tag hummus .
-docker run -it --rm -v ~/42reviews/libft_yufukuya/:/libft_yufukuya hummus
+docker run -it --rm -v [path/to/review_project]:/root/[review_project] hummus
 
-or
+e.g.
+docker run -it --rm -v ~/path/to/libft_yufukuya/:/root/libft_yufukuya hummus
 
-docker run --hostname hummus --name hummus -v [path/to/code]:/root/path/to/code -d -p 22021:22 hummus
-ssh -p 22021 root@localhost // password = root
+
+if you want to clone projects from inside the container:
+https://medium.com/@francesco.camillini/inject-ssh-private-key-securely-into-a-docker-container-8403b72ab9e3
+*be careful not to leave private keys in images. don't do it if you're not sure.
 
