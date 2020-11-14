@@ -12,7 +12,8 @@ RUN apt-get update && \
 	openssh-server \
 	xorg \
 	libxext-dev \
-	zlib1g-dev
+	zlib1g-dev \
+	strace
 
 COPY .bashrc /root/.bashrc
 COPY .vimrc /root/.vimrc

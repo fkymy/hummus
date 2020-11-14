@@ -2,7 +2,7 @@ docker build --tag hummus .
 docker run -it --rm -v [path/to/review_project]:/root/[review_project] hummus
 
 e.g.
-docker run -it --rm -v ~/path/to/libft_yufukuya/:/root/libft_yufukuya hummus
+docker run -it --rm -v $(pwd):/root/libft_yufukuya hummus
 
 
 if you want to clone projects from inside the container:
