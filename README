@@ -1,5 +1,5 @@
 docker build --tag hummus .
-docker run -it --rm -v [path/to/review_project]:/root/[review_project] hummus
+docker run -it --rm -v [path/to/review_project]:/tmp/[review_project] hummus
 
 e.g.
 docker run -it --rm -v $(pwd):/root/libft_yufukuya hummus
