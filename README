@@ -1,3 +1,10 @@
+[Tools]
+ - build-essential (gcc, make)
+ - norminette
+ - valgrind
+ - nasm
+
+[Usage]
 docker build --tag hummus .
 docker run -it --rm -v [path/to/review_project]:/tmp/[review_project] hummus
 

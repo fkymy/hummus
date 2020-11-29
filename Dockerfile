@@ -14,6 +14,7 @@ RUN apt-get update && \
 	libxext-dev \
 	zlib1g-dev \
 	strace \
+	nasm \
 	ruby \
 	ruby-bundler \
 	ruby-dev
