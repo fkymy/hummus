@@ -1,17 +1,20 @@
-[Tools]
+
+Hummus is a minimal Linux container for reviewing C/Assembly projects.
+
+TOOLS
  - build-essential (gcc, make)
- - norminette
  - valgrind
+ - strace
  - nasm
+ - norminette v3
 
-[Usage]
+USAGE
+git clone git@github.com:fkymy/hummus.git
+cd hummus
 docker build --tag hummus .
-docker run -it --rm -v [path/to/review_project]:/tmp/[review_project] hummus
+docker run -it --rm -v $(pwd):/[project_name] hummus
 
-e.g.
-docker run -it --rm -v $(pwd):/root/libft_yufukuya hummus
-
-
+NOTE
 if you want to clone projects from inside the container:
 https://medium.com/@francesco.camillini/inject-ssh-private-key-securely-into-a-docker-container-8403b72ab9e3
 *be careful not to leave private keys in images. don't do it if you're not sure.
