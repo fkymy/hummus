@@ -1,6 +1,4 @@
-FROM ubuntu:16.04
-
-ENV CH_NORM_HOSTNAME=yes
+FROM ubuntu:20.04
 
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -15,19 +13,19 @@ RUN apt-get update && \
 	zlib1g-dev \
 	strace \
 	nasm \
-	ruby \
-	ruby-bundler \
-	ruby-dev
+	python2 \
+	python3 \
+	python3-pip
 
-COPY .bashrc /root/.bashrc
-COPY .vimrc /root/.vimrc
+COPY dotfiles/.bashrc /root/.bashrc
+COPY dotfiles/.vimrc /root/.vimrc
 
-RUN git clone https://github.com/hivehelsinki/norminette-client.git ~/.norminette/ && \
-	cd ~/.norminette && bundle && \
-	echo 'alias norminette="~/.norminette/norminette.rb"' >> ~/.bashrc
+WORKDIR /usr/src/norminette
 
-COPY entrypoint.sh /tmp/
-RUN chmod +x /tmp/entrypoint.sh
+RUN git clone --depth 1 https://github.com/42School/norminette . && \
+	pip3 install -r requirements.txt && \
+	python3 setup.py install
 
-ENTRYPOINT ["tmp/entrypoint.sh"]
+WORKDIR /root/project
+
 CMD ["/bin/bash"]

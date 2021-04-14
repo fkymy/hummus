@@ -12,7 +12,7 @@ USAGE
 git clone git@github.com:fkymy/hummus.git
 cd hummus
 docker build --tag hummus .
-docker run -it --rm -v $(pwd):/[project_name] hummus
+docker run -it --rm -v $(pwd):/root/project hummus
 
 NOTE
 if you want to clone projects from inside the container:
