@@ -1,0 +1,72 @@
+#! /bin/bash
+
+ancestor="hummus:latest"
+user="hummus-user"
+dir="`pwd`"
+project="`basename "$dir"`"
+
+fresh=
+if test "$1" = "-f" -o "$1" = "--fresh"; then
+    fresh=1
+    shift
+fi
+if test "$#" -ne 0; then
+    echo "Usage: hummus [-f | --fresh]" 1>&2
+    exit 1
+fi
+
+if test -z "$fresh"; then
+    existing_image="`docker ps -f status=running \
+                               -f ancestor="$ancestor" \
+                               -f volume=/host_mnt"$dir" \
+                               --no-trunc --format "{{.CreatedAt}},{{.ID}}" |
+                               sort -r |
+                               head -n 1`"
+    if test -n "$existing_image"; then
+        created_at="`echo $existing_image | sed 's/,.*//'`"
+        image="`echo $existing_image | sed 's/^.*,//'`"
+        image8="`echo $image | head -c 8`"
+        echo "* Using running container $image8, created $created_at" 1>&2
+        echo "- To start a fresh container, exit then \`hummus -f\`" 1>&2
+        echo "- To kill this container, exit then \`docker kill $image8\`" 1>&2
+        exec docker exec -it $image /bin/bash
+    fi
+fi
+
+# temporary...
+netarg=
+if test `uname` = Darwin; then
+    if ! netstat -n -a -p tcp | grep '\.12345[ 	].*LISTEN' >/dev/null; then
+        netarg="$netarg "'--expose=12345/tcp -p 12345:12345/tcp'
+    fi
+    if ! netstat -n -a -p tcp | grep '\.6169[  ].*LISTEN' >/dev/null; then
+        netarg="$netarg "'--expose=6169/tcp -p 6169:6169/tcp'
+    fi
+    if ! netstat -n -a -p tcp | grep '\.12949[ 	].*LISTEN' >/dev/null; then
+        netarg="$netarg "'--expose=12949/tcp -p 12949:12949/tcp'
+    fi
+elif test -x /bin/netstat; then
+    if ! netstat -n -a -p tcp | grep '\.6169[  ].*LISTEN' >/dev/null; then
+        netarg="$netarg "'--expose=6169/tcp -p 6169:6169/tcp'
+    fi
+    if ! netstat -n -l -t | grep ':12949[ 	]' >/dev/null; then
+        netarg="$netarg "'--expose=12949/tcp -p 12949:12949/tcp'
+    fi
+fi
+
+if test -n "$project"; then
+    exec docker run -it --rm \
+                    --cap-add=SYS_PTRACE \
+                    --security-opt seccomp=unconfined \
+                    -v "$dir":/home/$user/$project \
+                    -w "/home/$user/$project" \
+                    $netarg \
+                    $ancestor
+else
+    exec docker run -it --rm \
+                    --cap-add=SYS_PTRACE \
+                    --security-opt seccomp=unconfined \
+                    $netarg \
+                    $ancestor
+fi
+
