@@ -64,9 +64,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 # install networking programs
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 		dnsutils \
+		fcgiwrap \
 		inetutils-ping \
 		net-tools \
 		netcat \
+		nginx \
+		perl \
 		telnet \
 		traceroute
 
