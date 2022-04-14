@@ -79,6 +79,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 		locales \
 		wamerican
 
+# set up cunit testing framework
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
+		libcunit1 \
+		libcunit1-doc \
+		libcunit1-dev
+
 # set up norminette
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 		python2 \
